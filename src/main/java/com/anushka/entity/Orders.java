@@ -64,4 +64,12 @@ public class Orders {
     public void setOrderSubtotal(double orderSubtotal) {
         this.orderSubtotal = orderSubtotal;
     }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }
