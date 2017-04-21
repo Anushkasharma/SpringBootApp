@@ -16,31 +16,5 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    public void setOrderSubTotal(Orders order) {
-        Orders updatedOrder = orderRepository.findOne(order.getId());
-        double orderSubTotal = 0;
-        for (ProductsOrders po : order.getProductsOrders()) {
-            orderSubTotal += po.getProductSubTotal();
-        }
-        updatedOrder.setOrderSubTotal(orderSubTotal);
-    }
-
-    public void setOrderTax(Orders order) {
-        Orders updatedOrder = orderRepository.findOne(order.getId());
-        double orderTax = 0;
-        for (ProductsOrders po : order.getProductsOrders()) {
-            orderTax += po.getProductSubTotal() * TaxConstants.COBB_COUNTY_GEORGIA_TAX;
-        }
-        updatedOrder.setOrderTax(orderTax);
-    }
-
-    public void setOrderTotal(Orders order) {
-        Orders updatedOrder = orderRepository.findOne(order.getId());
-        double orderTotal = 0;
-        for (ProductsOrders po : order.getProductsOrders()) {
-            orderTotal += po.getProductSubTotal();
-        }
-        updatedOrder.setOrderTotal(orderTotal);
-    }
 
 }

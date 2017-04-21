@@ -42,7 +42,6 @@ public class OrderServiceTest extends AbstractAnushkaDataSetup {
         fakeOrder.setCustomer(anushka);
         orderRepository.save(fakeOrder);
 
-        orderService.setOrderSubTotal(fakeOrder);
         assertEquals(1.00, orderRepository.getOne(fakeOrder.getId()).getOrderSubTotal());
     }
 

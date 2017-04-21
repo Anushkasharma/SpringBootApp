@@ -31,11 +31,8 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(LocalDate orderDate, double orderSubTotal, double orderTax, double orderTotal) {
+    public Orders(LocalDate orderDate) {
         this.orderDate = orderDate;
-        this.orderSubTotal = orderSubTotal;
-        this.orderTax = orderTax;
-        this.orderTotal = orderTotal;
     }
 
     public Long getId() {
@@ -68,6 +65,17 @@ public class Orders {
 
     public void setProductsOrders(List<ProductsOrders> productsOrders) {
         this.productsOrders = productsOrders;
+        double ordersSubTotal = 0;
+        double ordersTax = 0;
+        double ordersTotal = 0;
+        for (ProductsOrders po : this.getProductsOrders()) {
+            ordersSubTotal += po.getProductSubTotal();
+            ordersTax += po.getProductSubTotal() * TaxConstants.COBB_COUNTY_GEORGIA_TAX;
+            ordersTotal += ordersSubTotal + ordersTax;
+        }
+        this.setOrderSubTotal(ordersSubTotal);
+        this.setOrderTax(ordersTax);
+        this.setOrderTotal(ordersTotal);
     }
 
     public double getOrderSubTotal() {
