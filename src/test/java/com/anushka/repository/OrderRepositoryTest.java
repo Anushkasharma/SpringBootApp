@@ -1,24 +1,16 @@
 package com.anushka.repository;
 
+import com.anushka.configuration.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
-import com.anushka.entity.Product;
-import com.anushka.entity.ProductType;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by rxd2095 on 4/18/17.
@@ -26,37 +18,23 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class OrderRepositoryTest {
+public class OrderRepositoryTest extends AbstractAnushkaDataSetup {
 
-    @Autowired
-    OrderRepository orderRepository;
-
-    @Before
-    public void setUp() {
-        Product product1 = new Product(ProductType.DAISY, "Polka-dotted Daisy", 9.99);
-        Product product2 = new Product(ProductType.DAISY, "Red-striped Daisy", 9.98);
-
-        Orders orders1 = new Orders();
-
-        List<Product> productList1 = Arrays.asList(product1, product2);
-
-        orders1.setOrderDate(LocalDate.of(2017, Month.APRIL, 1));
-
-        List<Orders> ordersList = new ArrayList<>();
-        ordersList.add(orders1);
-
-        ordersList.forEach(orderRepository::save);
-    }
-
-    @After
-    public void tearDown() {
-        orderRepository.deleteAll();
+    @Test
+    public void findAllProductsinAllOrders_usingQueryAnnotations() {
+        List<Orders> ordersList = orderRepository.findAllProductsAndAllOrders();
+        assertEquals(4, ordersList.size());
     }
 
     @Test
-    public void usingQueryAnnotation_returnsAllRecords() {
-        List<Orders> orders = orderRepository.findAllProductsAndAllOrders();
-        assertEquals(orders.size(), 1);
+    public void usingQueryAnnotationToFindAllOrdersByCustomerFirstName() {
+        String fName = "Anushka";
+        List<Orders> orderList = orderRepository.findAllOrdersByCustomerFirstName(fName);
+        assertEquals(2, orderList.size());
+
+        fName = "Chad";
+        orderList = orderRepository.findAllOrdersByCustomerFirstName(fName);
+        assertEquals(1, orderList.size());
     }
 
 }

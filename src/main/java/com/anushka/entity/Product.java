@@ -2,7 +2,6 @@ package com.anushka.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by rxd2095 on 4/14/17.

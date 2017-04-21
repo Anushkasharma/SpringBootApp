@@ -2,8 +2,6 @@ package com.anushka.service;
 
 import com.anushka.entity.Product;
 import com.anushka.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
