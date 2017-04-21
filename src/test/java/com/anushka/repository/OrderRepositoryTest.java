@@ -21,12 +21,6 @@ import static org.junit.Assert.assertEquals;
 public class OrderRepositoryTest extends AbstractAnushkaDataSetup {
 
     @Test
-    public void findAllProductsinAllOrders_usingQueryAnnotations() {
-        List<Orders> ordersList = orderRepository.findAllProductsAndAllOrders();
-        assertEquals(4, ordersList.size());
-    }
-
-    @Test
     public void usingQueryAnnotationToFindAllOrdersByCustomerFirstName() {
         String fName = "Anushka";
         List<Orders> orderList = orderRepository.findAllOrdersByCustomerFirstName(fName);

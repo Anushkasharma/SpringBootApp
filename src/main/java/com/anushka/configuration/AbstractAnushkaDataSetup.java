@@ -3,6 +3,7 @@ package com.anushka.configuration;
 import com.anushka.entity.*;
 import com.anushka.repository.CustomerRepository;
 import com.anushka.repository.OrderRepository;
+import com.anushka.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -24,6 +25,9 @@ public abstract class AbstractAnushkaDataSetup {
 
     @Autowired
     public CustomerRepository customerRepository;
+
+    @Autowired
+    public OrderService orderService;
 
     @Bean
     @Primary
@@ -111,7 +115,7 @@ public abstract class AbstractAnushkaDataSetup {
         return customerRepository;
     }
 
-    private double calculateProductSubTotal(Product product1, int productQuantity) {
+    public double calculateProductSubTotal(Product product1, int productQuantity) {
         return product1.getPrice() * productQuantity;
     }
 
