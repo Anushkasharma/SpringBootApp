@@ -1,9 +1,5 @@
 package com.anushka.entity;
 
-import ch.qos.logback.classic.db.names.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -20,8 +16,8 @@ public class Product implements Serializable {
     private ProductType productType;
     private String productName;
     private double price;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "products")
-    private List<Orders> orders;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductsOrders.class)
+    private ProductsOrders orders;
 
     public Product() {
     }
@@ -62,5 +58,13 @@ public class Product implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public ProductsOrders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ProductsOrders orders) {
+        this.orders = orders;
     }
 }

@@ -17,20 +17,25 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @JsonIgnore
+    @OneToOne
+    private Customer customer;
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate orderDate;
-    private int orderQuantity;
-    private double orderSubtotal;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Product.class)
-    private List<Product> products;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductsOrders.class)
+    private List<ProductsOrders> productsOrders;
+    private double orderSubTotal;
+    private double orderTax;
+    private double orderTotal;
 
     public Orders() {
     }
 
-    public Orders(Product product, LocalDate orderDate, int orderQuantity, double orderSubtotal) {
+    public Orders(LocalDate orderDate, double orderSubTotal, double orderTax, double orderTotal) {
         this.orderDate = orderDate;
-        this.orderQuantity = orderQuantity;
-        this.orderSubtotal = orderSubtotal;
+        this.orderSubTotal = orderSubTotal;
+        this.orderTax = orderTax;
+        this.orderTotal = orderTotal;
     }
 
     public Long getId() {
@@ -41,6 +46,14 @@ public class Orders {
         this.id = id;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public LocalDate getOrderDate() {
         return orderDate;
     }
@@ -49,27 +62,35 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
-    public int getOrderQuantity() {
-        return orderQuantity;
+    public List<ProductsOrders> getProductsOrders() {
+        return productsOrders;
     }
 
-    public void setOrderQuantity(int orderQuantity) {
-        this.orderQuantity = orderQuantity;
+    public void setProductsOrders(List<ProductsOrders> productsOrders) {
+        this.productsOrders = productsOrders;
     }
 
-    public double getOrderSubtotal() {
-        return orderSubtotal;
+    public double getOrderSubTotal() {
+        return orderSubTotal;
     }
 
-    public void setOrderSubtotal(double orderSubtotal) {
-        this.orderSubtotal = orderSubtotal;
+    public void setOrderSubTotal(double orderSubTotal) {
+        this.orderSubTotal = orderSubTotal;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public double getOrderTax() {
+        return orderTax;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setOrderTax(double orderTax) {
+        this.orderTax = orderTax;
+    }
+
+    public double getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(double orderTotal) {
+        this.orderTotal = orderTotal;
     }
 }

@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Created by rxd2095 on 4/15/17.
  */
-@RestController
+//@RestController
 public class ProductController {
 
-    @Autowired
+//    @Autowired
     ProductService productService;
 
-    @GetMapping("/products/findAll")
+//    @GetMapping("/products/findAll")
     public List<Product> findAllProducts() {
         return productService.findAllProducts();
     }

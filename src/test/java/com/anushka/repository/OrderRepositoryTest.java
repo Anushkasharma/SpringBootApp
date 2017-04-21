@@ -41,9 +41,6 @@ public class OrderRepositoryTest {
         List<Product> productList1 = Arrays.asList(product1, product2);
 
         orders1.setOrderDate(LocalDate.of(2017, Month.APRIL, 1));
-        orders1.setOrderQuantity(1);
-        orders1.setOrderSubtotal(24.00);
-        orders1.setProducts(productList1);
 
         List<Orders> ordersList = new ArrayList<>();
         ordersList.add(orders1);

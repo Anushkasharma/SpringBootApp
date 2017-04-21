@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * Created by rxd2095 on 4/15/17.
  */
-@Component
+//@Component
 public class ProductService {
 
-    @Autowired
+//    @Autowired
     ProductRepository productRepository;
 
     public List<Product> findAllProducts() {
