@@ -12,7 +12,7 @@ public class ProductsOrders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "orders")
+    @OneToOne
     private Product product;
     private double productQty;
     private double productSubTotal;
@@ -22,10 +22,10 @@ public class ProductsOrders {
     public ProductsOrders() {
     }
 
-    public ProductsOrders(Product product, double productQty, double productSubTotal) {
+    public ProductsOrders(Product product, double productQty) {
         this.product = product;
         this.productQty = productQty;
-        this.productSubTotal = productSubTotal;
+        this.setProductSubTotal(product.getPrice() * productQty);
     }
 
     public Long getId() {

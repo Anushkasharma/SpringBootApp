@@ -71,7 +71,7 @@ public class Orders {
         for (ProductsOrders po : this.getProductsOrders()) {
             ordersSubTotal += po.getProductSubTotal();
             ordersTax += po.getProductSubTotal() * TaxConstants.COBB_COUNTY_GEORGIA_TAX;
-            ordersTotal += ordersSubTotal + ordersTax;
+            ordersTotal += po.getProductSubTotal() + po.getProductSubTotal() * TaxConstants.COBB_COUNTY_GEORGIA_TAX;
         }
         this.setOrderSubTotal(ordersSubTotal);
         this.setOrderTax(ordersTax);

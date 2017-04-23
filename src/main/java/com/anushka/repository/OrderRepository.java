@@ -18,9 +18,12 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
     List<Orders> findAllOrdersWithAllOtherInfoByCustomerFirstName(String firstName);
 
     @Query(value = "SELECT * FROM ORDERS O INNER JOIN CUSTOMER C ON O.CUSTOMER_ID = C.ID WHERE C.FIRST_NAME = ?1", nativeQuery = true)
+    List<Orders> findAllOrdersByCustomerFirstNameAnnotated(String firstName);
+
     List<Orders> findAllOrdersByCustomerFirstName(String firstName);
 
     @Query(value = "SELECT SUM(PRODUCT_SUB_TOTAL) FROM PRODUCTS_ORDERS PO INNER JOIN ORDERS_PRODUCTS_ORDERS OPO ON PO.ID = OPO.PRODUCTS_ORDERS_ID INNER JOIN ORDERS O ON OPO.ORDERS_ID = O.ID WHERE O.ORDER_DATE = ?1", nativeQuery = true)
-    double getOrderSubtotalByOrderDate(LocalDate orderDate);
+    double getOrderSubtotalByOrderDateAnnotated(LocalDate orderDate);
 
+    List<Orders> getOrderSubtotalByOrderDate(LocalDate orderDate);
 }

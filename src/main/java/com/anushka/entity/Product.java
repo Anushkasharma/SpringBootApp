@@ -15,7 +15,7 @@ public class Product implements Serializable {
     private ProductType productType;
     private String productName;
     private double price;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductsOrders.class)
+    @OneToOne
     private ProductsOrders orders;
 
     public Product() {
