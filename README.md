@@ -9,3 +9,11 @@
 \ (_ o _) /|  |    |  | \ /  . \ / \       / (_{;}_)|   | |  |  \    / \ (_ o _) /
  '.(_,_).' '--'    '--'  ``-'`-''   `-...-'  '(_,_) '---' `--'   `'-'   '.(_,_).'
 ```
+
+# Running PITest Mutations Report
+`./gradlew pitest`
+Mutation Report gets written to `/build/reports/pitest/<timestamp>/index.html`.
+
+# Running Jacoco Coverage Report
+`./gradlew test jacocoTestReport`
+Coverage Report gets written to `/build/reports/jacoco/html/index.html`.
