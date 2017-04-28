@@ -28,6 +28,7 @@ pitest {
 	pitestVersion = "1.1.11" //not needed when a default PIT version should be used
 	threads = 4
 	outputFormats = ['XML', 'HTML']
+	timeoutConst = 8000
 }
 
 dependencies {
@@ -38,7 +39,6 @@ dependencies {
 	compile ('com.h2database:h2:1.4.193')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('com.h2database:h2')
-//	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.pitest:pitest:1.1.11')
 }
