@@ -1,5 +1,6 @@
 package com.anushka.service;
 
+import com.anushka.configuration.AbstractAnushkaDataSetup;
 import com.anushka.entity.Product;
 import com.anushka.entity.ProductType;
 import com.anushka.repository.ProductRepository;
@@ -23,32 +24,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class ProductServiceTest {
-
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    ProductService productService;
-
-    @Before
-    public void setUp() {
-        List<Product> productList = Arrays.asList(
-                new Product(ProductType.LILLY, "White Lilly", 1.00),
-                new Product(ProductType.CHRYSANTHYMUM, "Polka-dotted Chrysanthymum", 2.00)
-        );
-        productList.forEach(productRepository::save);
-    }
-
-    @After
-    public void tearDown() {
-        productRepository.deleteAll();
-    }
+public class ProductServiceTest extends AbstractAnushkaDataSetup {
 
     @Test
     public void productService_returnsAllProducts() {
         List<Product> products = productService.findAllProducts();
-        assertEquals(2, products.size());
+        assertEquals(4, products.size());
     }
 
 }
