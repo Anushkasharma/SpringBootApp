@@ -39,7 +39,7 @@ public class OrderServiceTest extends AbstractAnushkaTestDataSetup {
 
     @Test
     public void findAllOrdersWithAllOtherInfoByCustomerId_returnsOrdersByCustomerId() {
-        Long customerId = customerRepository.findByFirstName("Anushka").getId();
+        Long customerId = customerRepository.findByFirstName("Mohan").getId();
         List<Orders> ordersList = orderService.findAllOrdersWithAllOtherInfoByCustomerId(customerId);
         assertEquals(3, ordersList.size());
     }

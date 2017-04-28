@@ -7,5 +7,7 @@ public enum ProductType {
     ROSE,
     CHRYSANTHYMUM,
     LILLY,
-    DAISY
+    DAISY,
+    SUNFLOWER,
+    ORCHID
 }

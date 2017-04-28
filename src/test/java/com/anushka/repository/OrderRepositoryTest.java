@@ -25,11 +25,11 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void findAllOrdersByCustomerFirstName_usingQueryAnnotation() {
         // This test uses the @Query annotation in OrdersRepository
-        String fName = "Anushka";
+        String fName = "Mohan";
         List<Orders> orderList = orderRepository.findAllOrdersByCustomerFirstNameAnnotated(fName);
         assertEquals(2, orderList.size());
 
-        fName = "Chad";
+        fName = "Sanaya";
         orderList = orderRepository.findAllOrdersByCustomerFirstNameAnnotated(fName);
         assertEquals(1, orderList.size());
     }
@@ -37,20 +37,19 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void findAllOrdersByCustomerFirstName_usingJPAFunctionNaming() {
         // This test uses JPA's naming convention standards of the Repository functions to return results
-        String fName = "Anushka";
+        String fName = "Mohan";
         List<Orders> orderList = orderRepository.findAllOrdersByCustomerFirstName(fName);
         assertEquals(2, orderList.size());
 
-        fName = "Chad";
+        fName = "Sanaya";
         orderList = orderRepository.findAllOrdersByCustomerFirstName(fName);
         assertEquals(1, orderList.size());
     }
 
     @Test
     public void findAllOrdersByCustomerId_usingQueryAnnotation() {
-        Long custId = customerRepository.findByFirstName("Anushka").getId();
+        Long custId = customerRepository.findByFirstName("Mohan").getId();
         List<Orders> orderList = orderRepository.findAllOrdersWithAllOtherInfoByCustomerId(custId);
-//        List<Orders> orderList = orderRepository.findAllOrdersByCustomerFirstName("Anushka");
         assertEquals(3, orderList.size());
 
     }

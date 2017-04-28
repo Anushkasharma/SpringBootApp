@@ -27,6 +27,7 @@ import java.util.List;
 
 /**
  * Created by rxd2095 on 4/20/17.
+ * http://blog.flowersacrossmelbourne.com.au/uncategorized/40-of-the-worlds-weirdest-flowers/
  */
 @ActiveProfiles({"test", "default"})
 public abstract class AbstractAnushkaTestDataSetup {
@@ -113,10 +114,10 @@ public abstract class AbstractAnushkaTestDataSetup {
             productRepository = setProductRepository();
         }
 
-        Product product1 = productRepository.findByProductName("Yellow Daisy");
-        Product product2 = productRepository.findByProductName("White Daisy");
-        Product product3 = productRepository.findByProductName("Red Roses");
-        Product product4 = productRepository.findByProductName("Easter Lilly");
+        Product product1 = productRepository.findByProductName("Monkey Face Orchid");
+        Product product2 = productRepository.findByProductName("Corpse Flower");
+        Product product3 = productRepository.findByProductName("Purple Sunflower");
+        Product product4 = productRepository.findByProductName("Naked Man Orchid");
 
         // order 1 going to anushka
         ProductsOrders productsOrders1 = new ProductsOrders(product1, 1);
@@ -135,22 +136,22 @@ public abstract class AbstractAnushkaTestDataSetup {
             customerRepository = setCustomerRepository();
         }
 
-        Customer anushka = customerRepository.findByFirstName("Anushka");
-        Customer chad = customerRepository.findByFirstName("Chad");
+        Customer mohan = customerRepository.findByFirstName("Mohan");
+        Customer sanaya = customerRepository.findByFirstName("Sanaya");
 
         Orders orders1 = new Orders();
         orders1.setOrderDate(LocalDate.of(2017, Month.APRIL, 1));
-        orders1.setCustomer(anushka);
+        orders1.setCustomer(mohan);
         orders1.setProductsOrders(order1);
 
         Orders orders2 = new Orders();
         orders2.setOrderDate(LocalDate.of(2017, Month.APRIL, 2));
-        orders2.setCustomer(chad);
+        orders2.setCustomer(sanaya);
         orders2.setProductsOrders(order2);
 
         Orders orders3 = new Orders();
         orders3.setOrderDate(LocalDate.of(2017, Month.APRIL, 3));
-        orders3.setCustomer(anushka);
+        orders3.setCustomer(mohan);
         orders3.setProductsOrders(order3);
 
         List<Orders> ordersList = new ArrayList<>();
@@ -167,14 +168,14 @@ public abstract class AbstractAnushkaTestDataSetup {
     @Primary
     public CustomerRepository setCustomerRepository() throws SQLException {
 
-        Customer anushka = new Customer();
-        Customer chad = new Customer();
-        anushka.setFirstName("Anushka");
-        anushka.setLastName("Sharma");
-        chad.setFirstName("Chad");
-        chad.setLastName("Davis");
-        customerRepository.save(anushka);
-        customerRepository.save(chad);
+        Customer mohan = new Customer();
+        Customer sanaya = new Customer();
+        mohan.setFirstName("Mohan");
+        mohan.setLastName("Lal");
+        sanaya.setFirstName("Sanaya");
+        sanaya.setLastName("Irani");
+        customerRepository.save(mohan);
+        customerRepository.save(sanaya);
 
         return customerRepository;
     }
@@ -183,10 +184,10 @@ public abstract class AbstractAnushkaTestDataSetup {
     @Primary
     public ProductRepository setProductRepository() throws SQLException {
 
-        Product product1 = new Product(ProductType.DAISY, "Yellow Daisy", 5.00);
-        Product product2 = new Product(ProductType.DAISY, "White Daisy", 5.50);
-        Product product3 = new Product(ProductType.ROSE, "Red Roses", 24.00);
-        Product product4 = new Product(ProductType.LILLY, "Easter Lilly", 10.00);
+        Product product1 = new Product(ProductType.ORCHID, "Monkey Face Orchid", 5.00);
+        Product product2 = new Product(ProductType.DAISY, "Corpse Flower", 5.50);
+        Product product3 = new Product(ProductType.SUNFLOWER, "Purple Sunflower", 24.00);
+        Product product4 = new Product(ProductType.ORCHID, "Naked Man Orchid", 10.00);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
