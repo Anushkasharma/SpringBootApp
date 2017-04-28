@@ -1,4 +1,4 @@
-package com.anushka.configuration;
+package com.anushka.utility;
 
 import com.anushka.controller.OrderController;
 import com.anushka.controller.ProductController;
@@ -8,18 +8,12 @@ import com.anushka.repository.OrderRepository;
 import com.anushka.repository.ProductRepository;
 import com.anushka.service.OrderService;
 import com.anushka.service.ProductService;
-import com.anushka.utility.DBTestUtil;
-import org.junit.After;
-import org.junit.Before;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,11 +24,8 @@ import java.util.List;
 /**
  * Created by rxd2095 on 4/20/17.
  */
-@ActiveProfiles({"test", "default"})
+@Profile("default")
 public abstract class AbstractAnushkaDataSetup {
-
-    public MockMvc mockMvc;
-    public MockMvc productMockMvc;
 
     @Autowired
     private Environment environment;
@@ -62,46 +53,6 @@ public abstract class AbstractAnushkaDataSetup {
 
     @Autowired
     ApplicationContext applicationContext;
-
-    @Before
-    public void setUp() throws SQLException {
-        if (productRepository.count() == 0) {
-            setProductRepository();
-        }
-        if (orderRepository.count() == 0) {
-            setOrderRepository();
-        }
-        if (customerRepository.count() == 0) {
-            setCustomerRepository();
-        }
-
-
-        String[] profiles = this.environment.getActiveProfiles();
-        boolean isTest = false;
-        for (String profile : profiles) {
-            if ("test".equals(profile)) {
-                isTest = true;
-            }
-        }
-        if (isTest) {
-            String prop1 = "test.reset.sql.template";
-            DBTestUtil.resetAutoIncrementColumns(prop1, applicationContext, "ORDERS", "PRODUCTS_ORDERS", "PRODUCT", "CUSTOMER");
-        }
-
-        mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
-        productMockMvc = MockMvcBuilders.standaloneSetup(productController).build();
-    }
-
-    @After
-    public void tearDown() {
-        // We must delete the Parent entities first, which in this case is those created in the setOrderRepository() method
-        // Otherwise, we will get a `org.springframework.dao.DataIntegrityViolationException: could not execute statement;` Exception
-        orderRepository.deleteAll();
-        // This is a Child entity
-        productRepository.deleteAll();
-        // This is a Child entity
-        customerRepository.deleteAll();
-    }
 
     @Bean
     @Primary

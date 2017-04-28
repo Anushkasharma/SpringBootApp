@@ -1,6 +1,5 @@
 package com.anushka;
 
-import com.anushka.configuration.AbstractAnushkaDataSetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

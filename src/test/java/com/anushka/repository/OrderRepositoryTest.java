@@ -1,8 +1,8 @@
 package com.anushka.repository;
 
-import com.anushka.configuration.AbstractAnushkaDataSetup;
+import com.anushka.utility.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
-import org.junit.Ignore;
+import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class OrderRepositoryTest extends AbstractAnushkaDataSetup {
+public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
 
     @Test
     public void findAllOrdersByCustomerFirstName_usingQueryAnnotation() {

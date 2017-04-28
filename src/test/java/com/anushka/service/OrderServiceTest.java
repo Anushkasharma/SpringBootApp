@@ -1,8 +1,8 @@
 package com.anushka.service;
 
-import com.anushka.configuration.AbstractAnushkaDataSetup;
+import com.anushka.utility.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
-import org.junit.Ignore;
+import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class OrderServiceTest extends AbstractAnushkaDataSetup {
+public class OrderServiceTest extends AbstractAnushkaTestDataSetup {
 
     @Test
     public void getOrderSubtotalByOrderDate_returnsOrdersByOrderDate_usingAnnotation() {

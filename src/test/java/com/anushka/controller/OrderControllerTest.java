@@ -1,22 +1,17 @@
 package com.anushka.controller;
 
-import com.anushka.configuration.AbstractAnushkaDataSetup;
+import com.anushka.utility.AbstractAnushkaDataSetup;
+import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matcher;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.time.Month;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -29,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class OrderControllerTest extends AbstractAnushkaDataSetup {
+public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
 
     @Test
     public void orderControllerConnectsToEndpoint() throws Exception {
