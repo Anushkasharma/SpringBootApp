@@ -1,6 +1,5 @@
 package com.anushka.service;
 
-import com.anushka.utility.AbstractAnushkaDataSetup;
 import com.anushka.entity.Product;
 import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;

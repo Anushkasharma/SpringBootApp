@@ -1,6 +1,5 @@
 package com.anushka.service;
 
-import com.anushka.utility.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
 import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by rxd2095 on 4/20/17.

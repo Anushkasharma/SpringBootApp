@@ -8,17 +8,15 @@ import com.anushka.repository.OrderRepository;
 import com.anushka.repository.ProductRepository;
 import com.anushka.service.OrderService;
 import com.anushka.service.ProductService;
-import com.anushka.utility.DBTestUtil;
 import org.junit.After;
 import org.junit.Before;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.sql.SQLException;

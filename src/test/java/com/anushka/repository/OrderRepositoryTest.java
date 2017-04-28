@@ -1,6 +1,5 @@
 package com.anushka.repository;
 
-import com.anushka.utility.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
 import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;

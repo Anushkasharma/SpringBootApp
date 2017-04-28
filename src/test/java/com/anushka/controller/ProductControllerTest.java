@@ -1,6 +1,5 @@
 package com.anushka.controller;
 
-import com.anushka.utility.AbstractAnushkaDataSetup;
 import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
