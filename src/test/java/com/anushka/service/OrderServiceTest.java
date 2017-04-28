@@ -2,6 +2,7 @@ package com.anushka.service;
 
 import com.anushka.configuration.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +36,13 @@ public class OrderServiceTest extends AbstractAnushkaDataSetup {
         List<Orders> ordersList = orderService.getOrderSubtotalByOrderDate(orderDate);
         double expectedOrderSubTotal = ordersList.get(0).getOrderSubTotal();
         assertEquals(16.0, expectedOrderSubTotal, 0.0);
+    }
+
+    @Test
+    public void findAllOrdersWithAllOtherInfoByCustomerId_returnsOrdersByCustomerId() {
+        Long customerId = customerRepository.findByFirstName("Anushka").getId();
+        List<Orders> ordersList = orderService.findAllOrdersWithAllOtherInfoByCustomerId(customerId);
+        assertEquals(3, ordersList.size());
     }
 
 }

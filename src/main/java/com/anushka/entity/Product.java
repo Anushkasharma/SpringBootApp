@@ -1,5 +1,7 @@
 package com.anushka.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,6 +17,7 @@ public class Product implements Serializable {
     private ProductType productType;
     private String productName;
     private double price;
+    @JsonIgnore
     @OneToOne
     private ProductsOrders orders;
 

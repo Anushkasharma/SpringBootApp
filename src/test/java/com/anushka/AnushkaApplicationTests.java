@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class AnushkaApplicationTests extends AbstractAnushkaDataSetup {
+public class AnushkaApplicationTests {
 
 	@Test
 	public void contextLoads() {

@@ -2,6 +2,7 @@ package com.anushka.repository;
 
 import com.anushka.configuration.AbstractAnushkaDataSetup;
 import com.anushka.entity.Orders;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,6 +45,15 @@ public class OrderRepositoryTest extends AbstractAnushkaDataSetup {
         fName = "Chad";
         orderList = orderRepository.findAllOrdersByCustomerFirstName(fName);
         assertEquals(1, orderList.size());
+    }
+
+    @Test
+    public void findAllOrdersByCustomerId_usingQueryAnnotation() {
+        Long custId = customerRepository.findByFirstName("Anushka").getId();
+        List<Orders> orderList = orderRepository.findAllOrdersWithAllOtherInfoByCustomerId(custId);
+//        List<Orders> orderList = orderRepository.findAllOrdersByCustomerFirstName("Anushka");
+        assertEquals(3, orderList.size());
+
     }
 
     @Test

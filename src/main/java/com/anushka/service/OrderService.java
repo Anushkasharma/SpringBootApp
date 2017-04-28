@@ -17,13 +17,19 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    public double getOrderSubtotalByOrderDateAnnotated(LocalDate orderDate) {
+    public List<Orders> findAllOrdersWithAllOtherInfoByCustomerFirstName(String firstName) {
+        return orderRepository.findAllOrdersWithAllOtherInfoByCustomerFirstName(firstName);
+    }
+
+    public List<Orders> findAllOrdersWithAllOtherInfoByCustomerId(Long id) {
+        return orderRepository.findAllOrdersWithAllOtherInfoByCustomerId(id);
+    }
+
+    public Double getOrderSubtotalByOrderDateAnnotated(LocalDate orderDate) {
         return orderRepository.getOrderSubtotalByOrderDateAnnotated(orderDate);
     }
 
     public List<Orders> getOrderSubtotalByOrderDate(LocalDate orderDate) {
         return orderRepository.getOrderSubtotalByOrderDate(orderDate);
     }
-
-
 }

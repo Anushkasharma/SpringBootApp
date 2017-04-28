@@ -1,6 +1,7 @@
 package com.anushka.configuration;
 
 import com.anushka.controller.OrderController;
+import com.anushka.controller.ProductController;
 import com.anushka.entity.*;
 import com.anushka.repository.CustomerRepository;
 import com.anushka.repository.OrderRepository;
@@ -14,6 +15,7 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.context.ApplicationContext;
@@ -28,10 +30,14 @@ import java.util.List;
 /**
  * Created by rxd2095 on 4/20/17.
  */
-@ActiveProfiles("test")
+@ActiveProfiles({"test", "default"})
 public abstract class AbstractAnushkaDataSetup {
 
     public MockMvc mockMvc;
+    public MockMvc productMockMvc;
+
+    @Autowired
+    private Environment environment;
 
     @Autowired
     public OrderRepository orderRepository;
@@ -52,6 +58,9 @@ public abstract class AbstractAnushkaDataSetup {
     public OrderController orderController;
 
     @Autowired
+    public ProductController productController;
+
+    @Autowired
     ApplicationContext applicationContext;
 
     @Before
@@ -65,7 +74,22 @@ public abstract class AbstractAnushkaDataSetup {
         if (customerRepository.count() == 0) {
             setCustomerRepository();
         }
+
+
+        String[] profiles = this.environment.getActiveProfiles();
+        boolean isTest = false;
+        for (String profile : profiles) {
+            if ("test".equals(profile)) {
+                isTest = true;
+            }
+        }
+        if (isTest) {
+            String prop1 = "test.reset.sql.template";
+            DBTestUtil.resetAutoIncrementColumns(prop1, applicationContext, "ORDERS", "PRODUCTS_ORDERS", "PRODUCT", "CUSTOMER");
+        }
+
         mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
+        productMockMvc = MockMvcBuilders.standaloneSetup(productController).build();
     }
 
     @After
@@ -94,7 +118,7 @@ public abstract class AbstractAnushkaDataSetup {
         Product product1 = productRepository.findByProductName("Yellow Daisy");
         Product product2 = productRepository.findByProductName("White Daisy");
         Product product3 = productRepository.findByProductName("Red Roses");
-        Product product4 = productRepository.findByProductName("Yellow Daisy");
+        Product product4 = productRepository.findByProductName("Easter Lilly");
 
         // order 1 going to anushka
         ProductsOrders productsOrders1 = new ProductsOrders(product1, 1);
@@ -138,14 +162,13 @@ public abstract class AbstractAnushkaDataSetup {
 
         ordersList.forEach(orderRepository::save);
 
-        DBTestUtil.resetAutoIncrementColumns(applicationContext, "ORDERS");
-
         return orderRepository;
     }
 
     @Bean
     @Primary
     public CustomerRepository setCustomerRepository() throws SQLException {
+
         Customer anushka = new Customer();
         Customer chad = new Customer();
         anushka.setFirstName("Anushka");
@@ -155,14 +178,13 @@ public abstract class AbstractAnushkaDataSetup {
         customerRepository.save(anushka);
         customerRepository.save(chad);
 
-        DBTestUtil.resetAutoIncrementColumns(applicationContext, "CUSTOMER");
-
         return customerRepository;
     }
 
     @Bean
     @Primary
     public ProductRepository setProductRepository() throws SQLException {
+
         Product product1 = new Product(ProductType.DAISY, "Yellow Daisy", 5.00);
         Product product2 = new Product(ProductType.DAISY, "White Daisy", 5.50);
         Product product3 = new Product(ProductType.ROSE, "Red Roses", 24.00);
@@ -171,8 +193,6 @@ public abstract class AbstractAnushkaDataSetup {
         productRepository.save(product2);
         productRepository.save(product3);
         productRepository.save(product4);
-
-        DBTestUtil.resetAutoIncrementColumns(applicationContext, "PRODUCT");
 
         return productRepository;
     }

@@ -1,5 +1,7 @@
 package com.anushka.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Customer {
     private Long id;
     private String firstName;
     private String lastName;
+    @JsonIgnore
     @OneToOne
     private Orders orders;
 

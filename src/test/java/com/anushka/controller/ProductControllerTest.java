@@ -1,5 +1,6 @@
 package com.anushka.controller;
 
+import com.anushka.configuration.AbstractAnushkaDataSetup;
 import com.anushka.entity.Product;
 import com.anushka.entity.ProductType;
 import com.anushka.repository.ProductRepository;
@@ -27,34 +28,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class ProductControllerTest {
-
-    MockMvc mockMvc;
-
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    ProductController productController;
-
-    @Before
-    public void setUp() {
-        List<Product> productList = Arrays.asList(
-                new Product(ProductType.LILLY, "White Lilly", 1.00),
-                new Product(ProductType.CHRYSANTHYMUM, "Polka-dotted Chrysanthymum", 2.00)
-        );
-        productList.forEach(productRepository::save);
-        mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
-    }
-
-    @After
-    public void tearDown() {
-        productRepository.deleteAll();
-    }
+public class ProductControllerTest extends AbstractAnushkaDataSetup {
 
     @Test
     public void productController_correctlyMapsToEndpoint() throws Exception {
-        mockMvc.perform(get("/products/findAll"))
+        productMockMvc.perform(get("/products/findAll"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

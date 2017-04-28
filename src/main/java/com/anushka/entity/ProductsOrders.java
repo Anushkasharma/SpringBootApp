@@ -1,5 +1,7 @@
 package com.anushka.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,10 +14,12 @@ public class ProductsOrders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+//    @JsonIgnore
     @OneToOne
     private Product product;
     private double productQty;
     private double productSubTotal;
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "productsOrders")
     private List<Orders> orders;
 
