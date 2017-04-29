@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -23,6 +24,17 @@ public class ProductController {
     public ResponseEntity<?> findAllProducts() {
         try {
             List<Product> productList = productService.findAllProducts();
+            return new ResponseEntity<>(productList, HttpStatus.OK);
+        } catch (Exception ex) {
+            String errorMessage = ex.getMessage();
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/products/findAllByPriceAsc")
+    public ResponseEntity<?> findAllProductsByPriceAsc() {
+        try {
+            List<Product> productList = productService.findAllProductsOrderedByPriceAsc();
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();

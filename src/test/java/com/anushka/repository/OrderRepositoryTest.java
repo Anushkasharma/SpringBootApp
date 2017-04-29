@@ -62,7 +62,7 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
         // return a collection of data elements (a subset of object's properties), we will have to create
         // a custom POJO to contain those, then return them from the @Query-annotated repository function.
         double subTotal = orderRepository.getOrderSubtotalByOrderDateAnnotated(orderDate);
-        assertEquals(16.00, subTotal, 0.00);
+        assertEquals(401.98, subTotal, 0.00);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
         // to retrieve the property(ies) that we need (something we don't have to do when we use @Query, above)
         List<Orders> ordersList = orderRepository.getOrderSubtotalByOrderDate(orderDate);
         double orderSubTotal = ordersList.get(0).getOrderSubTotal();
-        assertEquals(16.00, orderSubTotal, 0.00);
+        assertEquals(401.98, orderSubTotal, 0.00);
     }
 
 }

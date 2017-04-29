@@ -6,6 +6,7 @@ import com.anushka.entity.*;
 import com.anushka.repository.CustomerRepository;
 import com.anushka.repository.OrderRepository;
 import com.anushka.repository.ProductRepository;
+import com.anushka.service.CustomerService;
 import com.anushka.service.OrderService;
 import com.anushka.service.ProductService;
 import org.junit.After;
@@ -49,6 +50,9 @@ public abstract class AbstractAnushkaTestDataSetup {
 
     @Autowired
     public OrderService orderService;
+
+    @Autowired
+    public CustomerService customerService;
 
     @Autowired
     public ProductService productService;
@@ -184,10 +188,10 @@ public abstract class AbstractAnushkaTestDataSetup {
     @Primary
     public ProductRepository setProductRepository() throws SQLException {
 
-        Product product1 = new Product(ProductType.ORCHID, "Monkey Face Orchid", 5.00);
-        Product product2 = new Product(ProductType.DAISY, "Corpse Flower", 5.50);
-        Product product3 = new Product(ProductType.SUNFLOWER, "Purple Sunflower", 24.00);
-        Product product4 = new Product(ProductType.ORCHID, "Naked Man Orchid", 10.00);
+        Product product1 = new Product(ProductType.ORCHID, "Monkey Face Orchid", 200.00);
+        Product product2 = new Product(ProductType.DAISY, "Corpse Flower", 100.99);
+        Product product3 = new Product(ProductType.SUNFLOWER, "Purple Sunflower", 300.00);
+        Product product4 = new Product(ProductType.ORCHID, "Naked Man Orchid", 19.99);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);

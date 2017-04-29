@@ -44,7 +44,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void orderController_returnsSubTotal_whenPassedOrderDateInTheCorrectFormat() throws Exception {
         LocalDate orderDate = LocalDate.of(2017, Month.APRIL, 1);
-        double expectedValue = 16.0;
+        double expectedValue = 401.98;
         mockMvc.perform(get("/orders/subtotal?orderDate=" + orderDate))
                 .andDo(print())
                 .andExpect(jsonPath("$", CoreMatchers.is(expectedValue)));
@@ -75,12 +75,12 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
                 .andExpect(jsonPath("$.[2].productsOrders.[0].id", equalTo(4)))
                 .andExpect(jsonPath("$.[2].productsOrders.[0].product.productType", equalTo("ORCHID")))
                 .andExpect(jsonPath("$.[2].productsOrders.[0].product.productName", equalTo("Naked Man Orchid")))
-                .andExpect(jsonPath("$.[2].productsOrders.[0].product.price", equalTo(10.0)))
+                .andExpect(jsonPath("$.[2].productsOrders.[0].product.price", equalTo(19.99)))
                 .andExpect(jsonPath("$.[2].productsOrders.[0].productQty", equalTo(10.0)))
-                .andExpect(jsonPath("$.[2].productsOrders.[0].productSubTotal", equalTo(100.0)))
-                .andExpect(jsonPath("$.[2].orderSubTotal", equalTo(100.0)))
-                .andExpect(jsonPath("$.[2].orderTax", equalTo(6.0)))
-                .andExpect(jsonPath("$.[2].orderTotal", equalTo(106.0)));
+                .andExpect(jsonPath("$.[2].productsOrders.[0].productSubTotal", equalTo(199.89999999999998)))
+                .andExpect(jsonPath("$.[2].orderSubTotal", equalTo(199.89999999999998)))
+                .andExpect(jsonPath("$.[2].orderTax", equalTo(11.993999999999998)))
+                .andExpect(jsonPath("$.[2].orderTotal", equalTo(211.89399999999998)));
     }
 
     @Test

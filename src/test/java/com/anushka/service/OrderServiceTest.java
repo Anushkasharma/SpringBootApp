@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -26,7 +28,7 @@ public class OrderServiceTest extends AbstractAnushkaTestDataSetup {
     public void getOrderSubtotalByOrderDate_returnsOrdersByOrderDate_usingAnnotation() {
         LocalDate orderDate = LocalDate.of(2017, Month.APRIL, 1);
         double orderSubTotal = orderService.getOrderSubtotalByOrderDateAnnotated(orderDate);
-        assertEquals(16.0, orderSubTotal, 0.0);
+        assertEquals(401.98, orderSubTotal, 0.0);
     }
 
     @Test
@@ -34,7 +36,7 @@ public class OrderServiceTest extends AbstractAnushkaTestDataSetup {
         LocalDate orderDate = LocalDate.of(2017, Month.APRIL, 1);
         List<Orders> ordersList = orderService.getOrderSubtotalByOrderDate(orderDate);
         double expectedOrderSubTotal = ordersList.get(0).getOrderSubTotal();
-        assertEquals(16.0, expectedOrderSubTotal, 0.0);
+        assertEquals(401.98, expectedOrderSubTotal, 0.0);
     }
 
     @Test
