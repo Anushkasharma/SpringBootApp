@@ -182,8 +182,10 @@ public abstract class AbstractAnushkaTestDataSetup {
         Customer sanaya = new Customer();
         mohan.setFirstName("Mohan");
         mohan.setLastName("Lal");
+        mohan.setBirthDay(LocalDate.of(1990, Month.JULY, 1));
         sanaya.setFirstName("Sanaya");
         sanaya.setLastName("Irani");
+        sanaya.setBirthDay(LocalDate.of(1995, Month.APRIL, 1));
         customerRepository.save(mohan);
         customerRepository.save(sanaya);
 
