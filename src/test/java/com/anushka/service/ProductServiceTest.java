@@ -1,6 +1,7 @@
 package com.anushka.service;
 
 import com.anushka.entity.Product;
+import com.anushka.entity.ProductType;
 import com.anushka.utility.AbstractAnushkaTestDataSetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,13 @@ public class ProductServiceTest extends AbstractAnushkaTestDataSetup {
     public void productService_returnsAllProducts() {
         List<Product> products = productService.findAllProducts();
         assertEquals(4, products.size());
+    }
+
+    @Test
+    public void productService_returnsAllProductsSortedByPriceAsc() {
+        List<Product> productList = productService.findAllProductsOrderedByPriceAsc();
+        ProductType expectedProductType = ProductType.SUNFLOWER;
+        assertEquals(expectedProductType, productList.get(productList.size() - 1).getProductType());
     }
 
 }

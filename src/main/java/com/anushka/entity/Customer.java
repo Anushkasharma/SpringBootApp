@@ -1,8 +1,11 @@
 package com.anushka.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,6 +19,8 @@ public class Customer {
     private Long id;
     private String firstName;
     private String lastName;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate birthDay;
     @JsonIgnore
     @OneToOne
     private Orders orders;
@@ -52,6 +57,14 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 
     public Orders getOrders() {

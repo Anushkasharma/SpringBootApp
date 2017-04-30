@@ -30,4 +30,15 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/products/findAllByPriceAsc")
+    public ResponseEntity<?> findAllProductsByPriceAsc() {
+        try {
+            List<Product> productList = productService.findAllProductsOrderedByPriceAsc();
+            return new ResponseEntity<>(productList, HttpStatus.OK);
+        } catch (Exception ex) {
+            String errorMessage = ex.getMessage();
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
