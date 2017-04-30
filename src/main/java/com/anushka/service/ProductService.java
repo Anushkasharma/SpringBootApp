@@ -34,7 +34,6 @@ public class ProductService {
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
         Root<Product> from = criteriaQuery.from(Product.class);
 
-        //Ordering the records
         CriteriaQuery<Object> select = criteriaQuery.select(from);
         select.orderBy(criteriaBuilder.asc(from.get("price")));
         TypedQuery<Object> typedQuery = em.createQuery(select);
