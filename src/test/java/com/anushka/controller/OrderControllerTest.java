@@ -28,7 +28,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void orderControllerConnectsToEndpoint() throws Exception {
         String sOrderDate = "2017-04-01";
-        mockMvc.perform(get("/orders/subtotal?orderDate=" + sOrderDate))
+        orderMockMvc.perform(get("/orders/subtotal?orderDate=" + sOrderDate))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -36,7 +36,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void orderControllerDoesNotConnectToEndpoint() throws Exception {
         String sOrderDate = "BlahBlahBlah";
-        mockMvc.perform(get("/orders/subtotal?orderDate=" + sOrderDate))
+        orderMockMvc.perform(get("/orders/subtotal?orderDate=" + sOrderDate))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
@@ -45,7 +45,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     public void orderController_returnsSubTotal_whenPassedOrderDateInTheCorrectFormat() throws Exception {
         LocalDate orderDate = LocalDate.of(2017, Month.APRIL, 1);
         double expectedValue = 401.98;
-        mockMvc.perform(get("/orders/subtotal?orderDate=" + orderDate))
+        orderMockMvc.perform(get("/orders/subtotal?orderDate=" + orderDate))
                 .andDo(print())
                 .andExpect(jsonPath("$", CoreMatchers.is(expectedValue)));
     }
@@ -53,7 +53,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void orderController_returns400_whenPassedOrderDateInTheWrongFormat() throws Exception {
         String orderDate = "MyDogSnoresSoLoudly";
-        mockMvc.perform(get("/orders/subtotal?orderDate=" + orderDate))
+        orderMockMvc.perform(get("/orders/subtotal?orderDate=" + orderDate))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
@@ -61,7 +61,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void orderController_returnsJsonForAllOrdersByCustomerId() throws Exception {
         Long customerId = customerRepository.findByFirstName("Mohan").getId();
-        mockMvc.perform(get("/orders/getOrderDetailsForCustomerById?id=" + customerId.toString()))
+        orderMockMvc.perform(get("/orders/getOrderDetailsForCustomerById?id=" + customerId.toString()))
                 .andDo(print())
                 // there are 3 separate products tied to the productorders for this customer
                 .andExpect(jsonPath("$", hasSize(3)))
@@ -86,7 +86,7 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
     @Test
     public void orderController_returns400_forAllOrdersByCustomerId_whenPassedIdInTheWrongFormat() throws Exception {
         String customerId = "Hercules";
-        mockMvc.perform(get("/orders/getOrderDetailsForCustomerById?id=" + customerId))
+        orderMockMvc.perform(get("/orders/getOrderDetailsForCustomerById?id=" + customerId))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }

@@ -1,9 +1,11 @@
 package com.anushka.utility;
 
+import com.anushka.controller.CustomerController;
 import com.anushka.controller.OrderController;
 import com.anushka.controller.ProductController;
 import com.anushka.entity.*;
 import com.anushka.repository.CustomerRepository;
+import com.anushka.repository.CustomerRepositoryImpl;
 import com.anushka.repository.OrderRepository;
 import com.anushka.repository.ProductRepository;
 import com.anushka.service.OrderService;
@@ -50,6 +52,9 @@ public abstract class AbstractAnushkaDataSetup {
 
     @Autowired
     public ProductController productController;
+
+    @Autowired
+    public CustomerController customerController;
 
     @Autowired
     ApplicationContext applicationContext;

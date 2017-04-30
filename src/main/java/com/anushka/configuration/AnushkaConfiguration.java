@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Profile;
  */
 @Configuration
 @ComponentScan
-@Profile({"default", "test"})
+@Profile("default")
 public class AnushkaConfiguration extends AbstractAnushkaDataSetup {
 }

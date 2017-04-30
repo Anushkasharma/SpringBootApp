@@ -1,5 +1,6 @@
 package com.anushka.utility;
 
+import com.anushka.controller.CustomerController;
 import com.anushka.controller.OrderController;
 import com.anushka.controller.ProductController;
 import com.anushka.entity.*;
@@ -30,11 +31,12 @@ import java.util.List;
  * Created by rxd2095 on 4/20/17.
  * http://blog.flowersacrossmelbourne.com.au/uncategorized/40-of-the-worlds-weirdest-flowers/
  */
-@ActiveProfiles({"test", "default"})
+@ActiveProfiles("test")
 public abstract class AbstractAnushkaTestDataSetup {
 
-    public MockMvc mockMvc;
+    public MockMvc orderMockMvc;
     public MockMvc productMockMvc;
+    public MockMvc customerMockMvc;
 
     @Autowired
     private Environment environment;
@@ -64,6 +66,9 @@ public abstract class AbstractAnushkaTestDataSetup {
     public ProductController productController;
 
     @Autowired
+    public CustomerController customerController;
+
+    @Autowired
     ApplicationContext applicationContext;
 
     @Before
@@ -91,8 +96,9 @@ public abstract class AbstractAnushkaTestDataSetup {
             DBTestUtil.resetAutoIncrementColumns(prop1, applicationContext, "ORDERS", "PRODUCTS_ORDERS", "PRODUCT", "CUSTOMER");
         }
 
-        mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
+        orderMockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
         productMockMvc = MockMvcBuilders.standaloneSetup(productController).build();
+        customerMockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
     }
 
     @After
