@@ -129,8 +129,10 @@ public abstract class AbstractAnushkaDataSetup {
         Customer chad = new Customer();
         anushka.setFirstName("Anushka");
         anushka.setLastName("Sharma");
+        anushka.setBirthDay(LocalDate.of(2000, Month.DECEMBER, 31));
         chad.setFirstName("Chad");
         chad.setLastName("Davis");
+        chad.setBirthDay(LocalDate.of(2000, Month.JANUARY, 1));
         customerRepository.save(anushka);
         customerRepository.save(chad);
 
