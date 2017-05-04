@@ -2,15 +2,11 @@ package com.anushka.data;
 
 import com.anushka.entity.Customer;
 import com.anushka.entity.Orders;
-import com.anushka.entity.ProductsOrders;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by rxd2095 on 5/3/17.

@@ -4,7 +4,6 @@ import com.anushka.data.CustomerRowMapper;
 import com.anushka.entity.Customer;
 import com.anushka.entity.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
