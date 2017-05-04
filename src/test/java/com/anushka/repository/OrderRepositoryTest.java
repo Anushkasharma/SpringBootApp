@@ -76,4 +76,37 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
         assertEquals(401.98, orderSubTotal, 0.00);
     }
 
+    @Test
+    public void orderRepository_usingCriteriaWithPredicatesToReturnOrdersForCustomer() {
+        // Let's first get customer Mohan Lal
+        Long id = 1L;
+        List<Orders> ordersList = orderRepository.getAllOrdersByCustomer(id);
+        // He should have 2 orders
+        assertEquals(2, ordersList.size());
+
+        // Now let's get customer Sanaya Irani
+        id = 2L;
+        ordersList = orderRepository.getAllOrdersByCustomer(id);
+        // She should have only 1 order
+        assertEquals(1, ordersList.size());
+
+    }
+
+    @Test
+    public void orderRepository_usingCriteriaWithPredicatesToReturnOrdersForCustomer_calculatesCumulativeOrderTotal() {
+        Long id = 0L;
+        double expectedOrderTotal = 0.0;
+        double actualOrderTotal = 0.0;
+
+        id = 1L;
+        expectedOrderTotal = 637.99;
+        actualOrderTotal = orderRepository.getCumulativeOrderAmountByCustomer(id);
+        assertEquals(expectedOrderTotal, actualOrderTotal, 0.0);
+
+        id = 2L;
+        expectedOrderTotal = 318.00;
+        actualOrderTotal = orderRepository.getCumulativeOrderAmountByCustomer(id);
+        assertEquals(expectedOrderTotal, actualOrderTotal, 0.0);
+    }
+
 }

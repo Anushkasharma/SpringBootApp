@@ -4,9 +4,7 @@ import com.anushka.controller.CustomerController;
 import com.anushka.controller.OrderController;
 import com.anushka.controller.ProductController;
 import com.anushka.entity.*;
-import com.anushka.repository.CustomerRepository;
-import com.anushka.repository.OrderRepository;
-import com.anushka.repository.ProductRepository;
+import com.anushka.repository.*;
 import com.anushka.service.CustomerService;
 import com.anushka.service.OrderService;
 import com.anushka.service.ProductService;
@@ -69,6 +67,12 @@ public abstract class AbstractAnushkaTestDataSetup {
     public CustomerController customerController;
 
     @Autowired
+    public PostRepository postRepository;
+
+    @Autowired
+    public PostCommentRepository postCommentRepository;
+
+    @Autowired
     ApplicationContext applicationContext;
 
     @Before
@@ -82,7 +86,9 @@ public abstract class AbstractAnushkaTestDataSetup {
         if (customerRepository.count() == 0) {
             setCustomerRepository();
         }
-
+        if (postRepository.count() == 0) {
+            setPostRepository();
+        }
 
         String[] profiles = this.environment.getActiveProfiles();
         boolean isTest = false;
@@ -93,7 +99,7 @@ public abstract class AbstractAnushkaTestDataSetup {
         }
         if (isTest) {
             String prop1 = "test.reset.sql.template";
-            DBTestUtil.resetAutoIncrementColumns(prop1, applicationContext, "ORDERS", "PRODUCTS_ORDERS", "PRODUCT", "CUSTOMER");
+            DBTestUtil.resetAutoIncrementColumns(prop1, applicationContext, "ORDERS", "PRODUCTS_ORDERS", "PRODUCT", "CUSTOMER", "POST", "POST_COMMENT");
         }
 
         orderMockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
@@ -104,12 +110,14 @@ public abstract class AbstractAnushkaTestDataSetup {
     @After
     public void tearDown() {
         // We must delete the Parent entities first, which in this case is those created in the setOrderRepository() method
-        // Otherwise, we will get a `org.springframework.dao.DataIntegrityViolationException: could not execute statement;` Exception
+        // Otherwise, we will get a `org.springframework.dao.DataIntegrityViolationException: could not execute statement;` exception
+        postRepository.deleteAll();
+        customerRepository.deleteAll();
         orderRepository.deleteAll();
         // This is a Child entity
         productRepository.deleteAll();
         // This is a Child entity
-        customerRepository.deleteAll();
+        // I assume this is good
     }
 
     @Bean
@@ -206,6 +214,24 @@ public abstract class AbstractAnushkaTestDataSetup {
         productRepository.save(product4);
 
         return productRepository;
+    }
+
+    @Bean
+    @Primary
+    public PostRepository setPostRepository() {
+        Post post = new Post("Moon Florist");
+
+        post.getComments().add(
+                new PostComment("My flower delivery was right on time!")
+        );
+        post.getComments().add(
+                new PostComment("The red roses were the most beautiful I have ever seen.")
+        );
+        post.getComments().add(
+                new PostComment("The naked man orchid was true to its name...a little scary.")
+        );
+        postRepository.save(post);
+        return postRepository;
     }
 
 }

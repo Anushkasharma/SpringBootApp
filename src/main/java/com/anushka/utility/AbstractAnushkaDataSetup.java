@@ -4,10 +4,7 @@ import com.anushka.controller.CustomerController;
 import com.anushka.controller.OrderController;
 import com.anushka.controller.ProductController;
 import com.anushka.entity.*;
-import com.anushka.repository.CustomerRepository;
-import com.anushka.repository.CustomerRepositoryImpl;
-import com.anushka.repository.OrderRepository;
-import com.anushka.repository.ProductRepository;
+import com.anushka.repository.*;
 import com.anushka.service.OrderService;
 import com.anushka.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,6 +53,12 @@ public abstract class AbstractAnushkaDataSetup {
 
     @Autowired
     public CustomerController customerController;
+
+    @Autowired
+    public PostRepository postRepository;
+
+    @Autowired
+    public PostCommentRepository postCommentRepository;
 
     @Autowired
     ApplicationContext applicationContext;
@@ -111,6 +115,9 @@ public abstract class AbstractAnushkaDataSetup {
         orders3.setCustomer(anushka);
         orders3.setProductsOrders(order3);
 
+//        anushka.setOrders(Arrays.asList(orders1, orders3));
+//        chad.setOrders(Arrays.asList(orders2));
+
         List<Orders> ordersList = new ArrayList<>();
         ordersList.add(orders1);
         ordersList.add(orders2);
@@ -153,6 +160,24 @@ public abstract class AbstractAnushkaDataSetup {
         productRepository.save(product4);
 
         return productRepository;
+    }
+
+    @Bean
+    @Primary
+    public PostRepository setPostRepository() {
+        Post post = new Post("Swapna Review");
+
+        post.getComments().add(
+                new PostComment("The firecracker naan was awesome!")
+        );
+        post.getComments().add(
+                new PostComment("Veggie korma was a little bit too soupy this time.")
+        );
+        post.getComments().add(
+                new PostComment("Great service from my waiter.  Nice guy.")
+        );
+        postRepository.save(post);
+        return postRepository;
     }
 
 }

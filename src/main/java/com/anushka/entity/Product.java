@@ -18,7 +18,7 @@ public class Product implements Serializable {
     private String productName;
     private double price;
     @JsonIgnore
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     private ProductsOrders orders;
 
     public Product() {

@@ -77,10 +77,10 @@ public class OrderControllerTest extends AbstractAnushkaTestDataSetup {
                 .andExpect(jsonPath("$.[2].productsOrders.[0].product.productName", equalTo("Naked Man Orchid")))
                 .andExpect(jsonPath("$.[2].productsOrders.[0].product.price", equalTo(19.99)))
                 .andExpect(jsonPath("$.[2].productsOrders.[0].productQty", equalTo(10.0)))
-                .andExpect(jsonPath("$.[2].productsOrders.[0].productSubTotal", equalTo(199.89999999999998)))
-                .andExpect(jsonPath("$.[2].orderSubTotal", equalTo(199.89999999999998)))
-                .andExpect(jsonPath("$.[2].orderTax", equalTo(11.993999999999998)))
-                .andExpect(jsonPath("$.[2].orderTotal", equalTo(211.89399999999998)));
+                .andExpect(jsonPath("$.[2].productsOrders.[0].productSubTotal", equalTo(199.90)))
+                .andExpect(jsonPath("$.[2].orderSubTotal", equalTo(199.90)))
+                .andExpect(jsonPath("$.[2].orderTax", equalTo(11.99)))
+                .andExpect(jsonPath("$.[2].orderTotal", equalTo(211.89)));
     }
 
     @Test

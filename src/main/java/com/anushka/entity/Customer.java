@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rxd2095 on 4/19/17.
@@ -22,8 +23,9 @@ public class Customer {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate birthDay;
     @JsonIgnore
-    @OneToOne
-    private Orders orders;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customer")
+//    @JoinColumn(name = "customer_id")
+    private List<Orders> orders;
 
     public Customer() {
     }
@@ -32,7 +34,7 @@ public class Customer {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.orders = orders;
+        this.orders = orders;
     }
 
     public Long getId() {
@@ -67,11 +69,11 @@ public class Customer {
         this.birthDay = birthDay;
     }
 
-    public Orders getOrders() {
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(Orders orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 }
