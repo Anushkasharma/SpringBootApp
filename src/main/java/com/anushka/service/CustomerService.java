@@ -16,14 +16,11 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<Customer> getAllCustomersUnordered() {
-
+    public List<Customer> getAllCustomersUnordered_usingCriteria() {
         return customerRepository.getAllCustomersUnordered_usingCriteria();
-
     }
 
-    public List<Customer> getAllCustomersOrderedByLastName() {
-
+    public List<Customer> getAllCustomersOrderedByLastName_usingCriteria() {
         return customerRepository.getAllCustomersOrderedByLastName_usingCriteria();
     }
 
