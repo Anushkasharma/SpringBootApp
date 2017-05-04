@@ -30,3 +30,10 @@ https://spring-boot-banner-gen.cfapps.io/banner
 # Generating Text Ascii Art
 
 http://patorjk.com/software/taag/#p=display&f=Flower%20Power&t=Anushka
+
+# 4 Types of Data Access Being Used
+## Take a look at each, and decide what you like best (JdbcTemplates are best for database access in PCF, IMO).
+- Hibernate named functions using keywords to magically query without JPQL;
+- Hibernate functions annotated with @Query to pass a JPQL string;
+- JPA with Criteria and Predicates; and
+- JdbcTemplates
