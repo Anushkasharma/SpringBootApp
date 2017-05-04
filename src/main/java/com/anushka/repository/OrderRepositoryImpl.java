@@ -1,7 +1,11 @@
 package com.anushka.repository;
 
+import com.anushka.data.OrdersRowMapper;
 import com.anushka.entity.Customer;
 import com.anushka.entity.Orders;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,8 +22,11 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     @PersistenceContext
     EntityManager em;
 
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @Override
-    public List<Orders> getAllOrdersByCustomer(Long id) {
+    public List<Orders> getAllOrdersByCustomer_usingCriteriaAndPredicatesWithJoin(Long id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Orders> cq = cb.createQuery(Orders.class);
         Root<Orders> orders = cq.from(Orders.class);
@@ -50,7 +57,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public double getCumulativeOrderAmountByCustomer(Long id) {
+    public double getCumulativeOrderAmountByCustomer_usingCriteriaAndPredicatesWithJoin(Long id) {
         double cumulativeTotal = 0.0;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Orders> cq = cb.createQuery(Orders.class);
@@ -83,5 +90,28 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
             cumulativeTotal += o.getOrderTotal();
         }
         return cumulativeTotal;
+    }
+
+    @Override
+    public List<Orders> getAllOrdersByCustomer_usingJDBCTemplate(Long id) {
+        String query = "" +
+                "SELECT " +
+                "O.ID, " +
+                "O.ORDER_DATE, " +
+                "O.ORDER_SUB_TOTAL, " +
+                "O.ORDER_TAX, " +
+                "O.ORDER_TOTAL, " +
+                "O.CUSTOMER_ID, " +
+                "C.BIRTH_DAY, " +
+                "C.FIRST_NAME, " +
+                "C.LAST_NAME " +
+                "FROM ORDERS O INNER JOIN CUSTOMER C " +
+                "ON O.CUSTOMER_ID = C.ID " +
+                "WHERE C.ID = ?";
+
+        List<Orders> orders = jdbcTemplate.query(
+                query, new OrdersRowMapper(), id);
+
+        return orders;
     }
 }

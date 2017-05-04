@@ -1,20 +1,18 @@
 package com.anushka.repository;
 
+import com.anushka.data.CustomerRowMapper;
 import com.anushka.entity.Customer;
 import com.anushka.entity.Orders;
-import org.hibernate.jpa.criteria.CriteriaBuilderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rxd2095 on 4/30/17.
@@ -24,8 +22,11 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @PersistenceContext
     EntityManager em;
 
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @Override
-    public List<Customer> getAllCustomersUnordered() {
+    public List<Customer> getAllCustomersUnordered_usingCriteria() {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
         Root<Customer> from = criteriaQuery.from(Customer.class);
@@ -40,7 +41,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     }
 
     @Override
-    public List<Customer> getAllCustomersOrderedByLastName() {
+    public List<Customer> getAllCustomersOrderedByLastName_usingCriteria() {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
         Root<Customer> from = criteriaQuery.from(Customer.class);
@@ -54,7 +55,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     }
 
     @Override
-    public List<Customer> getCustomerById(final Long id) {
+    public List<Customer> getCustomerById_usingCriteriaWithPredicate(final Long id) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
@@ -83,6 +84,25 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
             q.setParameter("id", id);
         }
         return q.getResultList();
+
+    }
+
+    public Customer getCustomerById_usingJDBCTemplate(Long custId) {
+
+        String sql = "" +
+                "SELECT " +
+                "   ID, " +
+                "   BIRTH_DAY, " +
+                "   FIRST_NAME, " +
+                "   LAST_NAME " +
+                "FROM CUSTOMER " +
+                "WHERE ID = ?";
+        Customer customer = (Customer) jdbcTemplate.queryForObject(
+                sql,
+                new Object[] { custId },
+                new CustomerRowMapper()
+        );
+        return customer;
 
     }
 }

@@ -36,6 +36,18 @@ public abstract class AbstractAnushkaTestDataSetup {
     public MockMvc productMockMvc;
     public MockMvc customerMockMvc;
 
+//    @Value("${jdbc.driverClassName}")
+//    private String jdbcDriverClassName;
+//
+//    @Value("${jdbc.url}")
+//    private String jdbcUrl;
+//
+//    @Value("${jdbc.username}")
+//    private String jdbcUsername;
+//
+//    @Value("${jdbc.password}")
+//    private String jdbcPassword;
+
     @Autowired
     private Environment environment;
 
@@ -74,6 +86,9 @@ public abstract class AbstractAnushkaTestDataSetup {
 
     @Autowired
     ApplicationContext applicationContext;
+
+//    @Autowired
+//    JdbcTemplate jdbcTemplate;
 
     @Before
     public void setUp() throws SQLException {
@@ -114,10 +129,7 @@ public abstract class AbstractAnushkaTestDataSetup {
         postRepository.deleteAll();
         customerRepository.deleteAll();
         orderRepository.deleteAll();
-        // This is a Child entity
         productRepository.deleteAll();
-        // This is a Child entity
-        // I assume this is good
     }
 
     @Bean
@@ -233,5 +245,23 @@ public abstract class AbstractAnushkaTestDataSetup {
         postRepository.save(post);
         return postRepository;
     }
+
+//    @Bean
+//    @Primary
+//    public JdbcTemplate setJdbcTemplate(DataSource dataSource) {
+//        jdbcTemplate = new JdbcTemplate(dataSource);
+//        return jdbcTemplate;
+//    }
+//
+//    @Bean
+//    @Primary
+//    public DataSource setDataSource() {
+//        BasicDataSource dataSource = new BasicDataSource();
+//        dataSource.setDriverClassName(jdbcDriverClassName);
+//        dataSource.setUrl(jdbcUrl);
+//        dataSource.setUsername(jdbcUsername);
+//        dataSource.setPassword(jdbcPassword);
+//        return dataSource;
+//    }
 
 }
