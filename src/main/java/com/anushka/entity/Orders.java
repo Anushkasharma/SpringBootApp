@@ -6,7 +6,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -34,6 +33,14 @@ public class Orders {
 
     public Orders(LocalDate orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public Orders(Long id, LocalDate orderDate, double orderSubTotal, double orderTax, double orderTotal) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.orderSubTotal = orderSubTotal;
+        this.orderTax = orderTax;
+        this.orderTotal = orderTotal;
     }
 
     public Long getId() {

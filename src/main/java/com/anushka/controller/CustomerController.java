@@ -22,7 +22,7 @@ public class CustomerController {
     @GetMapping("/customers/unordered")
     public ResponseEntity<?> getAllCustomersUnordered() {
         try {
-            List<Customer> customerList = customerService.getAllCustomersUnordered();
+            List<Customer> customerList = customerService.getAllCustomersUnordered_usingCriteria();
             return new ResponseEntity<>(customerList, HttpStatus.OK);
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
@@ -33,7 +33,7 @@ public class CustomerController {
     @GetMapping("/customers/orderedByLastName")
     public ResponseEntity<?> getAllCustomersOrderedByLastName() {
         try {
-            List<Customer> customerList = customerService.getAllCustomersOrderedByLastName();
+            List<Customer> customerList = customerService.getAllCustomersOrderedByLastName_usingCriteria();
             return new ResponseEntity<>(customerList, HttpStatus.OK);
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();

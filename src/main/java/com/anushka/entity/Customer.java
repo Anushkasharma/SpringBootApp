@@ -7,7 +7,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by rxd2095 on 4/19/17.
@@ -28,6 +27,13 @@ public class Customer {
     private List<Orders> orders;
 
     public Customer() {
+    }
+
+    public Customer(Long id, String firstName, String lastName, LocalDate birthDay) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDay = birthDay;
     }
 
     public Customer(Long id, String firstName, String lastName, List<Orders> orders) {

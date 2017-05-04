@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -80,13 +81,13 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
     public void orderRepository_usingCriteriaWithPredicatesToReturnOrdersForCustomer() {
         // Let's first get customer Mohan Lal
         Long id = 1L;
-        List<Orders> ordersList = orderRepository.getAllOrdersByCustomer(id);
+        List<Orders> ordersList = orderRepository.getAllOrdersByCustomer_usingCriteriaAndPredicatesWithJoin(id);
         // He should have 2 orders
         assertEquals(2, ordersList.size());
 
         // Now let's get customer Sanaya Irani
         id = 2L;
-        ordersList = orderRepository.getAllOrdersByCustomer(id);
+        ordersList = orderRepository.getAllOrdersByCustomer_usingCriteriaAndPredicatesWithJoin(id);
         // She should have only 1 order
         assertEquals(1, ordersList.size());
 
@@ -100,13 +101,33 @@ public class OrderRepositoryTest extends AbstractAnushkaTestDataSetup {
 
         id = 1L;
         expectedOrderTotal = 637.99;
-        actualOrderTotal = orderRepository.getCumulativeOrderAmountByCustomer(id);
+        actualOrderTotal = orderRepository.getCumulativeOrderAmountByCustomer_usingCriteriaAndPredicatesWithJoin(id);
         assertEquals(expectedOrderTotal, actualOrderTotal, 0.0);
 
         id = 2L;
         expectedOrderTotal = 318.00;
-        actualOrderTotal = orderRepository.getCumulativeOrderAmountByCustomer(id);
+        actualOrderTotal = orderRepository.getCumulativeOrderAmountByCustomer_usingCriteriaAndPredicatesWithJoin(id);
         assertEquals(expectedOrderTotal, actualOrderTotal, 0.0);
+    }
+
+    @Test
+    public void orderRepository_getAllOrdersByCustomerUsingJDBCTemplate_returnsAllOrdersForCustomer() {
+        Long id = 0L;
+        int expectedOrderTotal = 0;
+        int actualOrderTotal = 0;
+        List<Orders> ordersList = new ArrayList<>();
+
+        id = 1L;
+        expectedOrderTotal = 2;
+        ordersList = orderRepository.getAllOrdersByCustomer_usingJDBCTemplate(id);
+        actualOrderTotal = ordersList.size();
+        assertEquals(expectedOrderTotal, actualOrderTotal);
+
+        id = 2L;
+        expectedOrderTotal = 1;
+        ordersList = orderRepository.getAllOrdersByCustomer_usingJDBCTemplate(id);
+        actualOrderTotal = ordersList.size();
+        assertEquals(expectedOrderTotal, actualOrderTotal);
     }
 
 }
