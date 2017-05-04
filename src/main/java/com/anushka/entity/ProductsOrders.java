@@ -1,5 +1,6 @@
 package com.anushka.entity;
 
+import com.anushka.utility.CurrencyFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class ProductsOrders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 //    @JsonIgnore
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     private Product product;
     private double productQty;
     private double productSubTotal;
@@ -29,7 +30,7 @@ public class ProductsOrders {
     public ProductsOrders(Product product, double productQty) {
         this.product = product;
         this.productQty = productQty;
-        this.setProductSubTotal(product.getPrice() * productQty);
+        this.setProductSubTotal(CurrencyFormat.round((product.getPrice() * productQty), 2));
     }
 
     public Long getId() {

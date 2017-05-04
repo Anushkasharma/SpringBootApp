@@ -1,10 +1,12 @@
 package com.anushka.entity;
 
+import com.anushka.utility.CurrencyFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -16,7 +18,8 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
+//    @JoinColumn(name = "orders_id")
     private Customer customer;
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate orderDate;
@@ -81,7 +84,7 @@ public class Orders {
     }
 
     public void setOrderSubTotal(double orderSubTotal) {
-        this.orderSubTotal = orderSubTotal;
+        this.orderSubTotal = CurrencyFormat.round(orderSubTotal, 2);
     }
 
     public double getOrderTax() {
@@ -89,7 +92,7 @@ public class Orders {
     }
 
     public void setOrderTax(double orderTax) {
-        this.orderTax = orderTax;
+        this.orderTax = CurrencyFormat.round(orderTax, 2);
     }
 
     public double getOrderTotal() {
@@ -97,6 +100,6 @@ public class Orders {
     }
 
     public void setOrderTotal(double orderTotal) {
-        this.orderTotal = orderTotal;
+        this.orderTotal = CurrencyFormat.round(orderTotal, 2);
     }
 }

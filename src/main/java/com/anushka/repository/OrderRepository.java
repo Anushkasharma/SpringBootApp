@@ -12,7 +12,7 @@ import java.util.List;
  * Created by rxd2095 on 4/17/17.
  */
 @Component
-public interface OrderRepository extends JpaRepository<Orders, Long> {
+public interface OrderRepository extends JpaRepository<Orders, Long>, OrderRepositoryCustom {
 
     @Query(value = "SELECT * FROM ORDERS O INNER JOIN ORDERS_PRODUCTS_ORDERS OPO ON O.ID = OPO.ORDERS_ID INNER JOIN PRODUCTS_ORDERS PO ON OPO.PRODUCTS_ORDERS_ID = PO.ID INNER JOIN CUSTOMER C ON O.CUSTOMER_ID = C.ID INNER JOIN PRODUCT P ON OPO.PRODUCTS_ORDERS_ID = P.ID WHERE C.FIRST_NAME = ?1", nativeQuery = true)
     List<Orders> findAllOrdersWithAllOtherInfoByCustomerFirstName(String firstName);
